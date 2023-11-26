@@ -95,7 +95,7 @@
 				5250A48B2B0A65FC0011CCA3 /* Model */,
 				5250A4742B07EB6E0011CCA3 /* View */,
 				52D759152B0D112100A54CCD /* Extension */,
-				5250A4732B07EB510011CCA3 /* controller */,
+				5250A4732B07EB510011CCA3 /* Controller */,
 				5250A4622B07E65A0011CCA3 /* Assets.xcassets */,
 				5250A4642B07E65A0011CCA3 /* LaunchScreen.storyboard */,
 				5250A4672B07E65A0011CCA3 /* Info.plist */,
@@ -103,7 +103,7 @@
 			path = RickAndMortyApp;
 			sourceTree = "<group>";
 		};
-		5250A4732B07EB510011CCA3 /* controller */ = {
+		5250A4732B07EB510011CCA3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				5250A46D2B07E6C50011CCA3 /* MainTabBarController.swift */,
@@ -113,7 +113,7 @@
 				5250A47B2B081C6D0011CCA3 /* CharacterDetailsViewController.swift */,
 				5250A4832B096FAC0011CCA3 /* LoadViewController.swift */,
 			);
-			path = controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		5250A4742B07EB6E0011CCA3 /* View */ = {
