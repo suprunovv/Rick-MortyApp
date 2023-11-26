@@ -17,7 +17,7 @@ protocol TransferCell: AnyObject {
 
 final class EpisodesViewController: UIViewController {
     
-    let startView = EpisodesView()
+    let mainView = EpisodesView()
     var likeEpispd = LikedEpisodes.shared
     var filterString = String()
     var filterArray = [Characters]()
@@ -31,7 +31,7 @@ final class EpisodesViewController: UIViewController {
     var episodes = LikedEpisodes.shared.selfEpisodes
     
     override func loadView() {
-        view = startView
+        view = mainView
         navigationController?.navigationBar.isHidden = true
         tabBarController?.tabBar.barTintColor = .white
     }
@@ -39,13 +39,7 @@ final class EpisodesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getEpisodes()
-        setDelegate()
-    }
-    
-    
-    private func setDelegate() {
-        startView.seriesCollectionView.dataSource = self
-        startView.seartchBar.delegate = self 
+        mainView.seriesCollectionView.dataSource = self
     }
     
     private func getEpisodes() {
@@ -105,7 +99,7 @@ final class EpisodesViewController: UIViewController {
 
         }
         DispatchQueue.main.async {
-            self.startView.seriesCollectionView.reloadData()
+            self.mainView.seriesCollectionView.reloadData()
         }
     }
 }
