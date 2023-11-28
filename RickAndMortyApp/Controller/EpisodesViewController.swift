@@ -18,17 +18,10 @@ protocol TransferCell: AnyObject {
 final class EpisodesViewController: UIViewController {
     
     let mainView = EpisodesView()
-    var likeEpispd = LikedEpisodes.shared
-    var filterString = String()
-    var filterArray = [Characters]()
     
     private let sessionConfig = URLSessionConfiguration.default
     private let session = URLSession.shared
     private let decoder = JSONDecoder()
-
-    var arrayImage = [UIImage]()
-    var characters = [Characters]()
-    var episodes = LikedEpisodes.shared.selfEpisodes
     
     override func loadView() {
         view = mainView
@@ -44,20 +37,14 @@ final class EpisodesViewController: UIViewController {
     
     private func getEpisodes() {
         guard let url = URL(string: "https://rickandmortyapi.com/api/episode") else { return }
-        var result = Result()
         session.dataTask(with: url) {[weak self] data, _, error in
             guard let self = self else {return}
             if error == nil, let parseData = data {
                 guard let episodesResult = try? self.decoder.decode(Episod.self, from: parseData) else { return }
-                result = episodesResult.results?.randomElement() ?? Result()
-                result.characters?.enumerated().forEach { index, episode in
-                    self.getCharacter(url: episode) { characterInfo in
-                        self.characters.append(characterInfo)
-                        self.getImage(url: characterInfo.image ?? "") { image in
-                            self.arrayImage.append(image)
-                        }
-                         if (result.characters?.count ?? 0) - 1 == index {
-                             self.appendModel(episodesResult: result, charactersInfo: self.characters, image: self.arrayImage)
+                episodesResult.results?.forEach{ res in
+                    self.getCharacter(url: res.characters?.randomElement() ?? "") { char in
+                        self.getImage(url: char.image ?? "") { image in
+                            self.appendModel(episodesResult: res, charactersInfo: char, image: image)
                         }
                     }
                 }
@@ -86,22 +73,18 @@ final class EpisodesViewController: UIViewController {
         }
     }
 
-    private func appendModel(episodesResult: Result, charactersInfo: [Characters], image: [UIImage]) {
-        let _ = charactersInfo.enumerated().forEach { index, char in
-            LikedEpisodes.shared.updatePerson(model: PersonModel(personName: char.name ?? "",
+    private func appendModel(episodesResult: Result, charactersInfo: Characters, image: UIImage) {
+            LikedEpisodes.shared.updatePerson(model: PersonModel(personName: charactersInfo.name ?? "",
                                                                  nameEpisode: episodesResult.name ?? "",
-                                                                 image: image[index],
+                                                                 image: image ?? UIImage(),
                                                                  nomberEpisode: episodesResult.episode ?? "",
-                                                                 status: char.status ?? "",
-                                                                 species:  char.species ?? "",
-                                                                 gender:  char.gender ?? "",
-                                                                 id: String(char.id ?? 1)))
+                                                                 status: charactersInfo.status ?? "",
+                                                                 species:  charactersInfo.species ?? "",
+                                                                 gender:  charactersInfo.gender ?? "",
+                                                                 id: String(charactersInfo.id ?? 1)))
 
-        }
         DispatchQueue.main.async {
             self.mainView.seriesCollectionView.reloadData()
         }
     }
 }
-
-

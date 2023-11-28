@@ -14,15 +14,8 @@ protocol ReloadCollection: AnyObject {
 final class FavouritesViewController: UIViewController {
 
     let startView = FavouritesView()
-    var arrayLike = [PersonModel]() {
-        didSet {
-            startView.favouritCollectionView.reloadData()
-        }
-    }
-    
-    
-    override func loadView() {
 
+    override func loadView() {
         view = startView
         navigationController?.navigationBar.isHidden = true 
     }
@@ -35,11 +28,6 @@ final class FavouritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         startView.favouritCollectionView.reloadData()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
     }
     
     private func setView() {

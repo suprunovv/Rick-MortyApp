@@ -31,6 +31,6 @@ extension EpisodesViewController: ColletionCellDelegate {
 
 extension EpisodesViewController: TransferCell {
     func transfer(model: PersonModel) {
-        likeEpispd.updateLikeEpisode(episode: model)
+        LikedEpisodes.shared.updateLikeEpisode(episode: model)
     }
 }
