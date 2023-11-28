@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 struct PersonModel {
+    let episodeId: Int
     let personName: String
     let nameEpisode: String
     let image: UIImage
