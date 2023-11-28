@@ -32,6 +32,6 @@ final class LikedEpisodes {
     
     func updatePerson(model: PersonModel) {
         selfEpisodes.append(model)
+        selfEpisodes.sort {$0.episodeId < $1.episodeId }
     }
-    
 }

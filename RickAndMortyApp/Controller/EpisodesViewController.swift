@@ -74,9 +74,10 @@ final class EpisodesViewController: UIViewController {
     }
 
     private func appendModel(episodesResult: Result, charactersInfo: Characters, image: UIImage) {
-            LikedEpisodes.shared.updatePerson(model: PersonModel(personName: charactersInfo.name ?? "",
+        LikedEpisodes.shared.updatePerson(model: PersonModel(episodeId: episodesResult.id ?? 1,
+                                                                 personName: charactersInfo.name ?? "",
                                                                  nameEpisode: episodesResult.name ?? "",
-                                                                 image: image ?? UIImage(),
+                                                                 image: image,
                                                                  nomberEpisode: episodesResult.episode ?? "",
                                                                  status: charactersInfo.status ?? "",
                                                                  species:  charactersInfo.species ?? "",
